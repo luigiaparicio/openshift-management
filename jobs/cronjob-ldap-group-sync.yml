@@ -18,8 +18,8 @@ objects:
     ldap-sync.yml: |
       kind: LDAPSyncConfig
       apiVersion: v1
-      url: ${LDAP_URL}
-      insecure: true
+      url: ${LDAP_PROTOCOL}://${LDAP_HOSTNAME}:${LDAP_PORT}
+      insecure: ${LDAP_INSECURE}
       bindDN: ${LDAP_BIND_DN}
       bindPassword: ${LDAP_BIND_PASSWORD}
       rfc2307:
@@ -151,10 +151,21 @@ parameters:
     description: "The number of failed jobs that will be retained"
     value: "5"
     required: true
-  - name: "LDAP_URL"
-    displayName: "LDAP Server URL"
-    description: "URL of you LDAP server"
+  - name: "LDAP_HOSTNAME"
+    displayName: "Hostname of your LDAP Server"
     required: true
+  - name: "LDAP_PROTOCOL"
+    displayName: "Protocol for connections, ldap or ldaps"
+    required: true
+    value: "ldap"
+  - name: "LDAP_PORT"
+    displayNAme: "Port where LDAP Server listens"
+    required: true
+    value: "389"
+  - name: "LDAP_INSECURE"
+    displayName: "LDAP use insecure connections"
+    required: true
+    value: true
   - name: "LDAP_BIND_DN"
     displayName: "LDAP Bind User's DN"
     description: "The Full DN for the user you wish to use to authenticate to LDAP"
