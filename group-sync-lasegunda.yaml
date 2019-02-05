@@ -1,0 +1,26 @@
+kind: LDAPSyncConfig
+apiVersion: v1
+url: "ldaps://grupolasegunda.com.ar:636"
+insecure: false
+ca: "/etc/origin/master/ca_cert.pem"
+bindDN: "CN=openshift,CN=Users,DC=grupolasegunda,DC=com,DC=ar"
+bindPassword: "cP4pcS4k"
+augmentedActiveDirectory:
+    groupsQuery:
+        baseDN: "OU=Openshift,DC=grupolasegunda,DC=com,DC=ar"
+        scope: sub
+        derefAliases: never
+    groupUIDAttribute: dn
+    groupNameAttributes: [ cn ]
+    groupMembershipAttributes: [ memberOf ]
+    usersQuery:
+        baseDN: "CN=Users,DC=grupolasegunda,DC=com,DC=ar"
+        scope: sub
+        derefAliases: never
+    userUIDAttribute: dn
+    userNameAttributes: [ sAMAccountName ]
+groupUIDNameMapping:
+  "CN=Cluster-Admin-NoProdOpenshift,OU=Openshift,DC=grupolasegunda,DC=com,DC=ar": "admins"
+  "CN=Security-NoProd-Openshift,OU=Openshift,DC=grupolasegunda,DC=com,DC=ar": "security"
+  "CN=Developers-NoProd-Openshift,OU=Openshift,DC=grupolasegunda,DC=com,DC=ar": "developers"
+  "CN=Testers-NoProd-Openshift,OU=Openshift,DC=grupolasegunda,DC=com,DC=ar": "testers"
